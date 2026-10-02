@@ -1,0 +1,62 @@
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local player = Players.LocalPlayer
+local Remote =
+	ReplicatedStorage:WaitForChild("CartoonAndTatus"):WaitForChild("RemoteEvent")
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "CartoonAndTatus"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.fromOffset(330, 500)
+frame.Position = UDim2.new(0, 20, 0.5, -250)
+frame.Parent = gui
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 50)
+title.Text = "Cartoon and Tatus"
+title.TextScaled = true
+title.Parent = frame
+
+local layout = Instance.new("UIListLayout")
+layout.Padding = UDim.new(0, 5)
+layout.Parent = frame
+
+local function button(text, action, value)
+	local b = Instance.new("TextButton")
+	b.Size = UDim2.new(1, -10, 0, 40)
+	b.Text = text
+	b.TextScaled = true
+	b.Parent = frame
+
+	b.MouseButton1Click:Connect(function()
+		Remote:FireServer(action, value)
+	end)
+
+	return b
+end
+
+button("1. ฟาร์มใต้ดิน", "UndergroundFarm")
+button("2. ปลูกผัก", "Plant")
+button("3. ตกปลา", "Fish")
+button("4. เก็บชิป", "Chips")
+button("5. ยกกล่อง", "Box")
+button("6. ทำอาหาร", "Cook")
+button("7. ถูพื้น", "Clean")
+
+button("8. ดู Inventory", "Inventory")
+
+button("9. เปลี่ยนชื่อ", "SetName", "Cartoon")
+
+button("10. เลือกปลา", "SelectFish", "CommonFish")
+
+button("11. เปิดป้องกัน", "Protection", true)
+
+button("14. Save", "Save")
+button("15. Load", "Load")
+
+button("19. เปิด Auto Farm", "AutoFarm", true)
+button("19. ปิด Auto Farm", "AutoFarm", false)
